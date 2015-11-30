@@ -1,0 +1,10 @@
+/COM,ANSYS RELEASE Release 16.1      BUILD 16.1      UP20150325       10:43:37
+
+ *** ERROR ***                           CP =       1.061   TIME= 10:43:43
+ Data file E:\Programación III\Ejercicios\Proyecto\TiendaOnline.db has   
+ incorrect format, is missing READ/WRITE permission, or is empty for     
+ RESUME.                                                                 
+
+ *** WARNING ***                         CP =       1.061   TIME= 10:43:43
+ WHILE PROCESSING FILE BASED INPUT (/INPUT OR MACRO) AN ERROR HAS        
+ OCCURRED.  SHOULD INPUT PROCESSING BE SUSPENDED?                        
