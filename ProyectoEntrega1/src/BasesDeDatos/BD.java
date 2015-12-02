@@ -10,11 +10,10 @@ import java.util.LinkedList;
 
 import javax.swing.JPasswordField;
 
-/**
- * Clase que se ocupa de administrar los datos  
- * @author Usuario
- *
- */
+import Clases.Articulo;
+import Clases.Compra;
+
+
 
 public class BD {
 
@@ -26,9 +25,6 @@ public class BD {
 		conectar();
 	}
 
-	/**
-	 * Metodo que conecta a la base de datos
-	 */
 	public void conectar()
 	{
 		try {
@@ -43,9 +39,6 @@ public class BD {
 	}
 
 
-	/**
-	 * Metodo que desconecta de la base de datos
-	 */
 	public void desconectar()
 	{
 		try {
@@ -57,9 +50,6 @@ public class BD {
 		}
 	}
 
-	/**
-	 * Metodo que crea sentencia
-	 */
 	public void crearSentencia()
 	{
 		try {
@@ -70,9 +60,6 @@ public class BD {
 		}
 
 	}
-	/**
-	 * Metodo que cierra sentencia
-	 */
 	public void cerrarSentencia()
 	{
 		try {
@@ -82,12 +69,6 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Metodo que dado un email comprueba si existe en la base de datos
-	 * @param email : email del cliente
-	 * @return
-	 */
 	public static boolean existeCliente(String email){
 
 		boolean existe=false;
@@ -109,14 +90,6 @@ public class BD {
 		return existe;
 	}
 
-	/**
-	 * Metodo que inserta los datos de un cliente
-	 * @param d : dni del cliente
-	 * @param n : nombre del cliente
-	 * @param nc : numero de cuenta del cliente
-	 * @param e : email del cliente
-	 * @param c . contrasenia del cliente
-	 */
 	public void insertarCliente( String d, String n, String nc,String e, String c){
 		String s = "INSERT INTO cliente(Dni, Nombre, NumeroDeCuenta,Email, Contrasenia) VALUES ('"+d+"','"+n+"','"+nc+"','"+e+"','"+c+"')";
 		try {
@@ -128,12 +101,7 @@ public class BD {
 	}
 
 
-	/**
-	 * Metodo que inserta un articulo en la base de datos
-	 * @param codigo : codigo del articulo
-	 * @param nombre : tipo del articulo (falda,pantalon, zapato..)
-	 * @param precio :  precio del articulo
-	 */
+
 	public void insertarArticulo(int codigo, String nombre, double precio){
 		String s = "INSERT INTO articulo(Codigo,Nombre, Precio) VALUES ("+codigo+",'"+nombre+"'" +precio+")";
 		try {
@@ -143,12 +111,57 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Metodo que obtiene las rutas de las fotos
-	 * @param nombre : nombre de la foto
-	 * @param tipo : tipo de la foto(hombre,niño,mujer)
-	 * @return
-	 */
+
+
+	public void insertarCompra(String dni, int codigo , String fecha){
+		String s = "INSERT INTO Matricula(CodigoArticulo,DniCliente, Fecha) VALUES('"+codigo+"',"+dni+"',"+fecha +")";
+		try {
+			stmt.executeUpdate(s);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static LinkedList<String> obtenerRutasFotosNiniosJerseys(){
+		String s= "SELECT ruta FROM articulo";
+		LinkedList<String> lRutasNinios = new LinkedList<String>();
+
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			while(rs.next()){
+				lRutasNinios.add(rs.getString("ruta"));
+				System.out.println("Ruta:" + rs.getString("ruta"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return lRutasNinios;
+
+	}
+
+	public static LinkedList<String> obtenerRutasFotosHombres(){
+		String s= "SELECT ruta FROM articulo";
+		LinkedList<String> lRutasHombres = new LinkedList<String>();
+
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			while(rs.next()){
+				lRutasHombres.add(rs.getString("ruta"));
+				System.out.println("Ruta:" + rs.getString("ruta"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return lRutasHombres;
+
+	}
+
 	public static LinkedList<String> obtenerRutasFotos(String nombre, String tipo){
 		String s= "SELECT ruta FROM articulo WHERE Nombre='"+nombre+"' AND tipo='"+tipo+"'";
 		LinkedList<String> lRutasNinios = new LinkedList<String>();
@@ -168,11 +181,6 @@ public class BD {
 		return lRutasNinios;
 
 	}
-	/**
-	 * Metodo que obtiene la contraseña del cliente
-	 * @param nom : nombre del cliente
-	 * @return
-	 */
 	public String obtenerContrasenia (String nom){
 
 		String contrasenia = null;
@@ -189,6 +197,34 @@ public class BD {
 		return contrasenia;
 	}
 
+	public Articulo obtenerArticulo(String ruta){
+		String s = "SELECT * FROM articulo WHERE ruta='"+ruta+"'";
+		ResultSet rs;
+		Articulo a = null;
+		try {
+			rs = stmt.executeQuery(s);
+			a = new Articulo(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("ruta"),rs.getString("tipo"),rs.getFloat("precio"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return a;
+	}
+
+	public void insertarCompra(LinkedList<Compra> carrito){
+
+		for(int i=0;i<carrito.size();i++){
+			Compra c = carrito.get(i);
+			String s = "INSERT INTO compra(codigo,dni,unidades,precioTotal) VALUES('" + c.getCodigoArticulo() +"','" + c.getDniCliente()+ "',"+ c.getUnidades()+","+ c.getPrecioTotal()+")";
+			try {
+				stmt.executeUpdate(s);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 
 

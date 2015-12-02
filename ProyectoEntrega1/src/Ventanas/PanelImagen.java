@@ -3,12 +3,6 @@ package Ventanas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-
-/**
- * Clase que se ocupa de poner de fondo una imagen
- * @author Usuario
- *
- */
 public class PanelImagen extends javax.swing.JPanel {
 	public PanelImagen(){
 		this.setSize(400,280);

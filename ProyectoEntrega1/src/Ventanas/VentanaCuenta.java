@@ -18,18 +18,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
-/**
- * Clase que se encarga de registrar nuevos usuarios y de login ya registrados
- * @author Usuario
- *
- */
+
 public class VentanaCuenta extends JFrame implements ActionListener {
 
 	private JPanel contentPane , panelSur, panelNorte;
 	private JTextField txtNomUsuario;
 	private JLabel lblBienvenidoAModa, lblNombreUsuario,lblContraseña;
 	private JButton btnRegistrate,btnCancelar;
-	private JButton btnAceptar_1;
 	private JFrame ventanaAnterior;
 	private JPasswordField pfcontrasenia;
 	private JButton btnAceptar;
@@ -117,12 +112,17 @@ public class VentanaCuenta extends JFrame implements ActionListener {
 				if(s!=null && s.equals(pfcontrasenia.getText())){
 					JOptionPane.showMessageDialog(null, "Contraseña correcta", "CORRECTO!!!", JOptionPane.INFORMATION_MESSAGE	);
 					campoVacio();
+					VentanaPrincipal.inicioSesion=true;
+					this.dispose();
+					ventanaAnterior.setVisible(true);
 				}else{
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "INCORRECTO!!!", JOptionPane.ERROR_MESSAGE	);
 
 				}
 
 			}
+			else
+				JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "INCORRECTO!!!", JOptionPane.ERROR_MESSAGE	);
 			
 
 		}else if(botonPulsado==btnCancelar){

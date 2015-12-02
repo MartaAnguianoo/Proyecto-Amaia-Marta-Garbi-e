@@ -19,11 +19,6 @@ import javax.swing.JPasswordField;
 
 import BasesDeDatos.BD;
 
-/**
- * Ventana en la que se introducen los datos de los clientes 
- * @author Usuario
- *
- */
 public class VentanaRegistrar extends JFrame implements ActionListener {
 
 	private JPanel contentPane, panelCentro, panelIzquierda,panelDerecha, panelNorte;
@@ -130,9 +125,6 @@ public class VentanaRegistrar extends JFrame implements ActionListener {
 
 		this.setVisible(true);
 	}
-	/**
-	 * Metodo que pone los campos en blanco
-	 */
 	public void campoVacio()
 	{
 		txtDni.setText(" ");

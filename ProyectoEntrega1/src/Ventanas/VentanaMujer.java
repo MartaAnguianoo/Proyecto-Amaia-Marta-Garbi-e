@@ -21,11 +21,6 @@ import javax.swing.JMenuItem;
 import java.awt.FlowLayout;
 import javax.swing.JCheckBoxMenuItem;
 
-/**
- * Ventana donde se ven los articulos de las mujeres 
- * @author Usuario
- *
- */
 public class VentanaMujer extends JFrame implements MouseListener,ActionListener{
 
 	private JPanel contentPane, panelNorte, panelSur, panelFotos;

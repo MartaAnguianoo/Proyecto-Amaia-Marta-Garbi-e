@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -22,11 +24,6 @@ import java.awt.FlowLayout;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.Font;
 
-/**
- * Ventana donde se ven los articulos de los ninios
- * @author Usuario
- *
- */
 public class VentanaNinio extends JFrame implements MouseListener,ActionListener{
 
 	private JPanel contentPane, panelNorte, panelSur, panelFotos;
@@ -142,22 +139,22 @@ public class VentanaNinio extends JFrame implements MouseListener,ActionListener
 		panelCentro.setLayout(new GridLayout(1, 3, 0, 0));
 		cargarFotosNiño();
 		panelFotos = new JPanel();
-		panelFotos.setLayout(new GridLayout(2, 4));
+		panelFotos.setLayout(new GridLayout(0, 2));
 		this.setVisible(true);
 		this.setSize(775,525);
 		
 		
 	}
-//
-//	@Override
+
+	@Override
 	public void mouseClicked(MouseEvent e) {
-//		// TODO Auto-generated method stub
-//		Point p = panelCentro.getMousePosition();
-//		JLabel foto = (JLabel)panelCentro.getComponentAt(p);
-//		//ImageIcon im = (ImageIcon)foto.getIcon();
-//		//String ruta = im.getDescription();
-//		//this.dispose();
-//		//new VentanaNinio(this,ruta);
+		// TODO Auto-generated method stub
+		Point p = panelFotos.getMousePosition();
+		JLabel foto = (JLabel)panelFotos.getComponentAt(p);
+		ImageIcon im = (ImageIcon)foto.getIcon();
+		String ruta = im.getDescription();
+		this.dispose();
+		new VentanaDatoRopa(this, ruta);
 	}
 
 	@Override

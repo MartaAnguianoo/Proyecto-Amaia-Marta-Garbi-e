@@ -29,11 +29,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-/**
- * Ventana principal del proyecto ya que lleva a abrir todas las ventanas
- * @author Usuario
- *
- */
 public class VentanaPrincipal extends JFrame implements ActionListener, MouseListener{
 
 	public static BD bd ;
@@ -41,12 +36,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 	public Image ImagenFondo;
 	public URL fondo;
 	private JPanel panelSur, panelNorte, panelCentral, panelOpciones;
-	private JButton btnCuenta;
+	private JButton btnCuenta,btnCarrito;
 	private JLabel lblModaYComplementos;
 	private JMenuItem mntmNio, mntmHombre, mntmMujer;
 	private PanelImagen panelFondo;
+	public static boolean inicioSesion=false;
 
-	
+	public static String dniCliente;
+
 
 	/**
 	 * Launch the application.
@@ -167,6 +164,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 	    mntmMujer.setForeground(Color.GRAY);
 	    mntmMujer.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
 	    mntmMujer.setOpaque(false);
+	    
+	    btnCarrito = new JButton("Mi Carrito");
+	    btnCarrito.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+	    btnCarrito.setBounds(475, 33, 97, 25);
+	    btnCarrito.addActionListener(this);
+	    panelFondo.add(btnCarrito);
 	    btnCuenta.addActionListener(this);
 		
 		this.setVisible(true);
@@ -190,7 +193,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 		if(botonPulsado == btnCuenta){
 			new VentanaCuenta(this);
 		}
-		
+		else if(botonPulsado==btnCarrito){
+			new VentanaFinalizarCompra(this);
+		}
 	}
 
 	@Override

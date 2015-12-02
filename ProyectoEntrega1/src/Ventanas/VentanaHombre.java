@@ -22,11 +22,6 @@ import java.awt.FlowLayout;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.Font;
 
-/**
- * Ventana donde se ven los articulos de los hombres
- * @author Usuario
- *
- */
 public class VentanaHombre extends JFrame implements MouseListener,ActionListener{
 
 	private JPanel contentPane, panelNorte, panelSur, panelFotos;
