@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
-
+//
 public class VentanaCuenta extends JFrame implements ActionListener {
 
 	private JPanel contentPane , panelSur, panelNorte;
