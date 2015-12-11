@@ -6,11 +6,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JPasswordField;
 
 import Clases.Articulo;
+import Clases.Cliente;
 import Clases.Compra;
 
 
@@ -29,6 +31,7 @@ public class BD {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
+			/*C:\\Users\\Usuario\\Documents\\Ingenieria informática\\2ºCurso\\Pen 21-11-15\\Programación III\\Ejercicios\\Proyecto\\*/
 			connection = DriverManager.getConnection("jdbc:sqlite:TiendaOnline.db");
 			crearSentencia();
 		}catch(Exception e)
@@ -90,8 +93,8 @@ public class BD {
 		return existe;
 	}
 
-	public void insertarCliente( String d, String n, String nc,String e, String c){
-		String s = "INSERT INTO cliente(Dni, Nombre, NumeroDeCuenta,Email, Contrasenia) VALUES ('"+d+"','"+n+"','"+nc+"','"+e+"','"+c+"')";
+	public void insertarCliente( String d, String n, String nc,String e, String c,String dir){
+		String s = "INSERT INTO cliente(Dni, Nombre, NumeroDeTarjeta,Email, Contrasenia,Direccion) VALUES ('"+d+"','"+n+"','"+nc+"','"+e+"','"+c+"','"+dir+"')";
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e1) {
@@ -214,9 +217,11 @@ public class BD {
 
 	public void insertarCompra(LinkedList<Compra> carrito){
 
+		Date d = new Date(System.currentTimeMillis());
+		String fecha = d.toString();
 		for(int i=0;i<carrito.size();i++){
 			Compra c = carrito.get(i);
-			String s = "INSERT INTO compra(codigo,dni,unidades,precioTotal) VALUES('" + c.getCodigoArticulo() +"','" + c.getDniCliente()+ "',"+ c.getUnidades()+","+ c.getPrecioTotal()+")";
+			String s = "INSERT INTO compra(CodigoArticulo,DniCliente,Unidades,PrecioTotal,Fecha) VALUES('" + c.getCodigoArticulo() +"','" + c.getDniCliente()+ "',"+ c.getUnidades()+","+ c.getPrecioTotal()+",'"+fecha+"')";
 			try {
 				stmt.executeUpdate(s);
 			} catch (SQLException e) {
@@ -225,7 +230,38 @@ public class BD {
 			}
 		}
 	}
-
+	public String obtenerDni(String email, String con){
+		String s = "SELECT Dni FROM cliente WHERE Email='"+email+"' AND Contrasenia='"+con+"'";
+		String dni="";
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			if(rs.next())
+				dni=rs.getString("Dni");
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dni;
+	}
+	public Cliente obtenerDatos( String dni){
+		String s = "SELECT * FROM cliente WHERE Dni='"+dni+"'";
+		Cliente c=null;
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			if(rs.next())
+				c = new Cliente(rs.getString("Nombre"),rs.getString("Dni"),rs.getInt("NumeroDeTarjeta"),rs.getString("Direccion"),rs.getString("Email"),rs.getString("Contrasenia"));
+				
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return c;
+		
+	}
 
 
 }

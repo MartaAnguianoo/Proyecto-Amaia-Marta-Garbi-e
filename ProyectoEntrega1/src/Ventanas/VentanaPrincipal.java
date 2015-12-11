@@ -8,10 +8,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.net.URL;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.media.jfxmedia.AudioClip;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -20,6 +26,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.ImagingOpException;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -28,6 +36,7 @@ import javax.swing.UIManager;
 import javax.swing.JEditorPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class VentanaPrincipal extends JFrame implements ActionListener, MouseListener{
 
@@ -41,6 +50,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 	private JMenuItem mntmNio, mntmHombre, mntmMujer;
 	private PanelImagen panelFondo;
 	public static boolean inicioSesion=false;
+	public static boolean carritoinicio=false;
+	private Clip sonido;
 
 	public static String dniCliente;
 
@@ -174,6 +185,21 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 		
 		this.setVisible(true);
 		this.setSize(600, 400);
+		try {
+			sonido = AudioSystem.getClip();
+			sonido.open(AudioSystem.getAudioInputStream(new File("C:/Users/Usuario/Downloads/Disney_Songs_10_mp3cut.wav")));
+			sonido.start();
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedAudioFileException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 	public JPanel panel= new JPanel()
 	{
@@ -194,7 +220,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 			new VentanaCuenta(this);
 		}
 		else if(botonPulsado==btnCarrito){
-			new VentanaFinalizarCompra(this);
+			if(!carritoinicio)
+				JOptionPane.showMessageDialog(null, "ERROR!DEBES REGISTRARTE!","ERROR",JOptionPane.ERROR_MESSAGE);
+			else
+				new VentanaFinalizarCompra2(this);
 		}
 	}
 

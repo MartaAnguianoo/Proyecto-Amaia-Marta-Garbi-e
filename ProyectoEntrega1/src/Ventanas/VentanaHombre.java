@@ -134,7 +134,7 @@ public class VentanaHombre extends JFrame implements MouseListener,ActionListene
 		panelCentro.setLayout(new GridLayout(1, 3, 0, 0));
 		cargarFotosHombre();
 		panelFotos = new JPanel();
-		panelFotos.setLayout(new GridLayout(2, 4));
+		panelFotos.setLayout(new GridLayout(0, 2));
 		this.setVisible(true);
 		this.setSize(775,525);
 		
@@ -144,12 +144,12 @@ public class VentanaHombre extends JFrame implements MouseListener,ActionListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Point p = panelCentro.getMousePosition();
-		JLabel foto = (JLabel)panelCentro.getComponentAt(p);
+		Point p = panelFotos.getMousePosition();
+		JLabel foto = (JLabel)panelFotos.getComponentAt(p);
 		ImageIcon im = (ImageIcon)foto.getIcon();
 		String ruta = im.getDescription();
 		this.dispose();
-		//new VentanaNinio(this,ruta);
+		new VentanaDatoRopa(this,ruta);
 	}
 
 	@Override

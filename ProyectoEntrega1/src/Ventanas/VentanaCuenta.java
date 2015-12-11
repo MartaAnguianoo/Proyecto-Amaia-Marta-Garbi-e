@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
-//
+
 public class VentanaCuenta extends JFrame implements ActionListener {
 
 	private JPanel contentPane , panelSur, panelNorte;
@@ -111,8 +111,11 @@ public class VentanaCuenta extends JFrame implements ActionListener {
 			if(existe){
 				if(s!=null && s.equals(pfcontrasenia.getText())){
 					JOptionPane.showMessageDialog(null, "Contraseña correcta", "CORRECTO!!!", JOptionPane.INFORMATION_MESSAGE	);
-					campoVacio();
 					VentanaPrincipal.inicioSesion=true;
+					VentanaPrincipal.carritoinicio=true;
+					String d=VentanaPrincipal.bd.obtenerDni(txtNomUsuario.getText(), pfcontrasenia.getText());
+					VentanaPrincipal.dniCliente=d;
+					campoVacio();
 					this.dispose();
 					ventanaAnterior.setVisible(true);
 				}else{

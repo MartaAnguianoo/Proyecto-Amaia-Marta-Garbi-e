@@ -27,18 +27,20 @@ public class VentanaRegistrar extends JFrame implements ActionListener {
 	private JButton btnVolver, btnAceptar;
 	private JLabel lblIdentificateregistrate,lblCuentaDeUsuario,lblEmail,lblContrasenia,lblDatosDeContacto,lblNombre,lblDni,lblNCuenta;
 	private JFrame ventanaAnterior;
+	private JLabel lblDireccion;
+	private JTextField txtDireccion;
 
 	public VentanaRegistrar(JFrame va) {
 		ventanaAnterior = va;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 320);
+		setBounds(100, 100, 506, 352);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		panelCentro = new JPanel();
-		panelCentro.setBounds(5, 5, 424, 24);
+		panelCentro.setBounds(5, 5, 459, 24);
 		contentPane.add(panelCentro);
 
 		lblIdentificateregistrate = new JLabel("IDENTIFICATE/REGISTRATE");
@@ -50,16 +52,16 @@ public class VentanaRegistrar extends JFrame implements ActionListener {
 
 		btnAceptar = new JButton("ACEPTAR");
 		btnAceptar.addActionListener(this);
-		btnAceptar.setBounds(100, 239, 111, 23);
+		btnAceptar.setBounds(100, 269, 137, 23);
 		contentPane.add(btnAceptar);
 
 		btnVolver = new JButton("VOLVER");
-		btnVolver.setBounds(221, 239, 105, 23);
+		btnVolver.setBounds(249, 269, 137, 23);
 		contentPane.add(btnVolver);
 		btnVolver.addActionListener(this);
 
 		panelIzquierda = new JPanel();
-		panelIzquierda.setBounds(5, 40, 206, 199);
+		panelIzquierda.setBounds(5, 40, 219, 216);
 		contentPane.add(panelIzquierda);
 		panelIzquierda.setLayout(null);
 
@@ -79,16 +81,16 @@ public class VentanaRegistrar extends JFrame implements ActionListener {
 		panelIzquierda.add(lblContrasenia);
 
 		txtEmail = new JTextField();
-		txtEmail.setBounds(97, 40, 88, 20);
+		txtEmail.setBounds(97, 40, 110, 20);
 		panelIzquierda.add(txtEmail);
 		txtEmail.setColumns(10);
 
 		psContrasenia = new JPasswordField();
-		psContrasenia.setBounds(97, 91, 88, 20);
+		psContrasenia.setBounds(97, 91, 110, 20);
 		panelIzquierda.add(psContrasenia);
 
 		panelDerecha = new JPanel();
-		panelDerecha.setBounds(223, 40, 206, 199);
+		panelDerecha.setBounds(236, 40, 228, 216);
 		contentPane.add(panelDerecha);
 		panelDerecha.setLayout(null);
 
@@ -97,41 +99,51 @@ public class VentanaRegistrar extends JFrame implements ActionListener {
 		panelDerecha.add(lblDatosDeContacto);
 
 		lblNombre = new JLabel("Nombre : ");
-		lblNombre.setBounds(10, 44, 59, 14);
+		lblNombre.setBounds(10, 27, 59, 14);
 		panelDerecha.add(lblNombre);
 
 		lblDni = new JLabel("Dni :");
-		lblDni.setBounds(10, 100, 74, 14);
+		lblDni.setBounds(10, 79, 74, 14);
 		panelDerecha.add(lblDni);
 
-		lblNCuenta = new JLabel("N\u00BA Cuenta :");
-		lblNCuenta.setBounds(10, 154, 74, 14);
+		lblNCuenta = new JLabel("N\u00BA Tarjeta : ");
+		lblNCuenta.setBounds(10, 127, 74, 14);
 		panelDerecha.add(lblNCuenta);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(79, 41, 86, 20);
+		txtNombre.setBounds(79, 27, 115, 20);
 		panelDerecha.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtDni = new JTextField();
-		txtDni.setBounds(79, 97, 86, 20);
+		txtDni.setBounds(79, 76, 115, 20);
 		panelDerecha.add(txtDni);
 		txtDni.setColumns(10);
 
 		txtNCuenta = new JTextField();
-		txtNCuenta.setBounds(79, 151, 86, 20);
+		txtNCuenta.setBounds(79, 124, 115, 20);
 		panelDerecha.add(txtNCuenta);
 		txtNCuenta.setColumns(10);
+		
+		lblDireccion = new JLabel("Direccion :");
+		lblDireccion.setBounds(10, 172, 64, 16);
+		panelDerecha.add(lblDireccion);
+		
+		txtDireccion = new JTextField();
+		txtDireccion.setBounds(78, 169, 116, 22);
+		panelDerecha.add(txtDireccion);
+		txtDireccion.setColumns(10);
 
 		this.setVisible(true);
 	}
 	public void campoVacio()
 	{
-		txtDni.setText(" ");
-		txtEmail.setText(" ");
-		txtNCuenta.setText(" ");
-		txtNombre.setText(" ");
-		psContrasenia.setText(" ");
+		txtDni.setText("");
+		txtEmail.setText("");
+		txtNCuenta.setText("");
+		txtNombre.setText("");
+		psContrasenia.setText("");
+		txtDireccion.setText("");
 		
 	}
 
@@ -143,17 +155,18 @@ public class VentanaRegistrar extends JFrame implements ActionListener {
 		JButton botonPulsado = (JButton)e.getSource();
 		
 		if(botonPulsado == btnAceptar){
-			campoVacio();
-			if(txtNombre.getText().equals("") || txtDni.getText().equals("") || txtNCuenta.getText().equals("")){
+			if(txtNombre.getText().equals("") || txtDni.getText().equals("") || txtNCuenta.getText().equals("") || txtDireccion.getText().equals("")){
 				JOptionPane.showMessageDialog(null, "ERROR, faltan datos por rellenar", "ERROR!!! ", JOptionPane.ERROR_MESSAGE);
-				
+	
 			}else if(BD.existeCliente(txtEmail .getText())){
 				JOptionPane.showMessageDialog(null, "ERROR, el usuario ya se ha registrado con este email", "ERROR!!! ", JOptionPane.ERROR_MESSAGE);
 
 				
 			}else{
 				JOptionPane.showMessageDialog(null, "ENHORABUENA, el usuario ya se ha registrado", "ENHORABUENA!!! ", JOptionPane.INFORMATION_MESSAGE);
-				VentanaPrincipal.bd.insertarCliente(txtDni.getText(),txtNombre.getText(),txtNCuenta.getText(), txtEmail.getText(), psContrasenia.getText());
+				VentanaPrincipal.bd.insertarCliente(txtDni.getText(),txtNombre.getText(),txtNCuenta.getText(), txtEmail.getText(), psContrasenia.getText(),txtDireccion.getText());
+				campoVacio();
+
 			}
 		}else if(botonPulsado ==btnVolver){
 			this.dispose();

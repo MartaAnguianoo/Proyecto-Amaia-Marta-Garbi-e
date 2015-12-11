@@ -84,8 +84,10 @@ public class VentanaFinalizarCompra extends JFrame implements ActionListener{
 			
 		}
 		else if(botonPulsado == btnRealizarPago){
-			VentanaPrincipal.bd.insertarCompra(VentanaCliente.carrito);
-			JOptionPane.showMessageDialog(null, "Compra realizada con éxito", "OK!!", JOptionPane.INFORMATION_MESSAGE);
+			//VentanaPrincipal.bd.insertarCompra(VentanaCliente.carrito);
+			//JOptionPane.showMessageDialog(null, "Compra realizada con éxito", "OK!!", JOptionPane.INFORMATION_MESSAGE);
+			this.dispose();
+			new VentanaPagar(ventanaAnterior);
 		}
 		
 		

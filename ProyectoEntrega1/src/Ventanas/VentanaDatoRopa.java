@@ -17,17 +17,31 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.Font;
 
 public class VentanaDatoRopa extends JFrame implements ActionListener{
 
 	private JPanel contentPane, panelNorte, panelSur, panelCentro;
 	private JButton btnVolver, btnComprarArticulo;
-	private JLabel lblCodigo, lblNombre, lblPrecio,lblFoto;
+	private JLabel lblCodigo, lblNombre, lblPrecio,lblFoto,lblTalla;
 	private JFrame ventanaAnterior;
 	private String ruta;
 	private Articulo a;
+	private JComboBox comboBox;
+	
+	private void cargarComboBox(){
 
+
+		comboBox.addItem("XS");
+		comboBox.addItem("S");
+		comboBox.addItem("M");
+		comboBox.addItem("L");
+
+
+
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -93,6 +107,15 @@ public class VentanaDatoRopa extends JFrame implements ActionListener{
 		lblPrecio.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		lblPrecio.setBounds(213, 124, 56, 16);
 		panelCentro.add(lblPrecio);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(332, 173, 44, 22);
+		panelCentro.add(comboBox);
+		cargarComboBox();
+		
+		lblTalla = new JLabel("Talla : ");
+		lblTalla.setBounds(213, 176, 56, 16);
+		panelCentro.add(lblTalla);
 		this.setVisible(true);
 
 
