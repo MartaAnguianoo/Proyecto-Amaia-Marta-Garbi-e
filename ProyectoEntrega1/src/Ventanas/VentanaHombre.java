@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import Clases.Articulo;
+
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -18,10 +21,19 @@ import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.Font;
+import java.awt.Color;
 
+
+/**
+ * Ventana donde se elige la ropa de hombre que se quiere comprar
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class VentanaHombre extends JFrame implements MouseListener,ActionListener{
 
 	private JPanel contentPane, panelNorte, panelSur, panelFotos;
@@ -84,6 +96,7 @@ public class VentanaHombre extends JFrame implements MouseListener,ActionListene
 		panelOeste.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		mntmPantalones = new JMenuItem("Pantalones");
+		mntmPantalones.setForeground(new Color(64, 224, 208));
 		mntmPantalones.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		mntmPantalones.addActionListener(new ActionListener() {
 			
@@ -99,6 +112,7 @@ public class VentanaHombre extends JFrame implements MouseListener,ActionListene
 		panelOeste.add(mntmPantalones);
 		
 		mntmChaquetasJerseys = new JMenuItem("Chaquetas & Jerseys");
+		mntmChaquetasJerseys.setForeground(new Color(72, 61, 139));
 		panelOeste.add(mntmChaquetasJerseys);
 		mntmChaquetasJerseys.addActionListener(new ActionListener() {
 			
@@ -113,6 +127,7 @@ public class VentanaHombre extends JFrame implements MouseListener,ActionListene
 		});
 		
 		mntmZapatos = new JMenuItem("Zapatos");
+		mntmZapatos.setForeground(new Color(0, 0, 128));
 		mntmZapatos.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		panelOeste.add(mntmZapatos);
 		mntmZapatos.addActionListener(new ActionListener() {
@@ -148,8 +163,14 @@ public class VentanaHombre extends JFrame implements MouseListener,ActionListene
 		JLabel foto = (JLabel)panelFotos.getComponentAt(p);
 		ImageIcon im = (ImageIcon)foto.getIcon();
 		String ruta = im.getDescription();
-		this.dispose();
-		new VentanaDatoRopa(this,ruta);
+		Articulo a = VentanaPrincipal.bd.obtenerArticulo(ruta);
+		if(a.getUnidades()==0){
+			JOptionPane.showMessageDialog(null, "Lo sentimos pero este artículo está agotado");
+		}
+		else{
+			this.dispose();
+			new VentanaDatoRopa(this, ruta);
+		}
 	}
 
 	@Override

@@ -3,6 +3,11 @@ package Ventanas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+/**
+ * Esta clase muestra la imagen del fondo de la ventana principal
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class PanelImagen extends javax.swing.JPanel {
 	public PanelImagen(){
 		this.setSize(400,280);

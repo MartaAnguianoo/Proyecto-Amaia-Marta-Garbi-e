@@ -1,5 +1,10 @@
 package Clases;
 
+/**
+ * Esta clase tiene todos los datos de una compra
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class Compra {
 
 	private int codigoArticulo;
@@ -39,7 +44,7 @@ public class Compra {
 	public double getPrecioTotal() {
 		return precioTotal;
 	}
-	public void setPrecioTotal(float precioTotal) {
+	public void setPrecioTotal(double precioTotal) {
 		this.precioTotal = precioTotal;
 	}
 	

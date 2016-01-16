@@ -20,16 +20,22 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.Font;
-
+import javax.swing.JTextField;
+/**
+ * Ventana que nos muestra las caracteristicas de cada articulo 
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class VentanaDatoRopa extends JFrame implements ActionListener{
 
 	private JPanel contentPane, panelNorte, panelSur, panelCentro;
 	private JButton btnVolver, btnComprarArticulo;
-	private JLabel lblCodigo, lblNombre, lblPrecio,lblFoto,lblTalla;
+	private JLabel lblCodigo, lblNombre, lblPrecio,lblFoto,lblTalla,lblUnidades;
 	private JFrame ventanaAnterior;
 	private String ruta;
 	private Articulo a;
 	private JComboBox comboBox;
+	private JTextField txtUnidades;
 	
 	private void cargarComboBox(){
 
@@ -70,6 +76,7 @@ public class VentanaDatoRopa extends JFrame implements ActionListener{
 		panelCentro.setLayout(null);
 
 		a = VentanaPrincipal.bd.obtenerArticulo(ruta);
+		
 		ImageIcon im = new ImageIcon(a.getRuta());
 
 		lblFoto = new JLabel(im);
@@ -116,6 +123,16 @@ public class VentanaDatoRopa extends JFrame implements ActionListener{
 		lblTalla = new JLabel("Talla : ");
 		lblTalla.setBounds(213, 176, 56, 16);
 		panelCentro.add(lblTalla);
+		
+		lblUnidades = new JLabel("Unidades:");
+		lblUnidades.setBounds(213, 217, 74, 16);
+		panelCentro.add(lblUnidades);
+		
+		txtUnidades = new JTextField();
+		txtUnidades.setBounds(332, 211, 44, 22);
+		panelCentro.add(txtUnidades);
+		txtUnidades.setColumns(10);
+		txtUnidades.setText(String.valueOf(a.getUnidades()));
 		this.setVisible(true);
 
 
@@ -135,9 +152,15 @@ public class VentanaDatoRopa extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Primero tienes que iniciaar sesión", "ERROR!!", JOptionPane.ERROR_MESSAGE);
 			else{
 				int unidades=Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántas unidades quieres?"));
-				Compra c = new Compra(a.getCodigo(), VentanaPrincipal.dniCliente, unidades, unidades*a.getPrecio());
-				VentanaCliente.carrito.add(c);
-				JOptionPane.showMessageDialog(null, "Artículo añadido al carrito", "OK!!", JOptionPane.INFORMATION_MESSAGE);
+				if(a.getUnidades()<unidades){
+					JOptionPane.showMessageDialog(null, "Lo sentimos pero no hay suficientes unidades", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					Compra c = new Compra(a.getCodigo(), VentanaPrincipal.dniCliente, unidades, unidades*a.getPrecio());
+					VentanaCliente.aniadirCompraAlCarrito(c);
+					JOptionPane.showMessageDialog(null, "Artículo añadido al carrito", "OK!!", JOptionPane.INFORMATION_MESSAGE);
+					VentanaPrincipal.bd.modificarUnidadesArticulo(a.getCodigo(), unidades);
+				}
 			}
 		}
 

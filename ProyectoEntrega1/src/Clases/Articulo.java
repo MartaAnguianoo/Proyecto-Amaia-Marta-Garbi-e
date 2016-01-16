@@ -1,10 +1,17 @@
 package Clases;
 
+/**
+ * Esta clase tiene todos los datos de un articulo
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class Articulo {
 	
 	private int codigo;
 	private String nombre,ruta,tipo;
 	private float precio;
+	private int unidades;
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -17,13 +24,21 @@ public class Articulo {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Articulo(int codigo, String nombre, String ruta, String tipo, float precio) {
+	
+	public int getUnidades() {
+		return unidades;
+	}
+	public void setUnidades(int unidades) {
+		this.unidades = unidades;
+	}
+	public Articulo(int codigo, String nombre, String ruta, String tipo, float precio, int unidades) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.ruta = ruta;
 		this.tipo = tipo;
 		this.precio = precio;
+		this.unidades=unidades;
 	}
 	public String getRuta() {
 		return ruta;
@@ -46,7 +61,7 @@ public class Articulo {
 	@Override
 	public String toString() {
 		return "Articulo [codigo=" + codigo + ", nombre=" + nombre + ", ruta=" + ruta + ", tipo=" + tipo + ", precio="
-				+ precio + "]";
+				+ precio + ", unidades="+unidades+"]";
 	}
 	
 	

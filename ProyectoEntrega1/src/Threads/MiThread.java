@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 import Ventanas.VentanaMiThread;
 
 /**
- * 
- * @author 
+ * Esta clase es un hilo que simula que paga una compra 
+ * @author Amaia, Marta y Garbiñe
  *
  */
 

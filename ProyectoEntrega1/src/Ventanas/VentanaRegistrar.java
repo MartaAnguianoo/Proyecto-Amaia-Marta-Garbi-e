@@ -19,6 +19,11 @@ import javax.swing.JPasswordField;
 
 import BasesDeDatos.BD;
 
+/**
+ * Ventana donde se registra y se identifica un cliente
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class VentanaRegistrar extends JFrame implements ActionListener {
 
 	private JPanel contentPane, panelCentro, panelIzquierda,panelDerecha, panelNorte;

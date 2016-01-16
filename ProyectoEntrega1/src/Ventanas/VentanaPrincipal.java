@@ -25,6 +25,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.ImagingOpException;
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +40,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+/**
+ * Ventana principal del proyecto donde se puede registrar y elegir la ropa (niño, mujer, hombre)
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class VentanaPrincipal extends JFrame implements ActionListener, MouseListener{
 
 	public static BD bd ;
@@ -76,7 +83,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
-
+		
+		
 		panelFondo = new PanelImagen();
 		bd = new BD();
 		//bd.conectar();
@@ -157,6 +165,28 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 		
 	    btnCuenta = new JButton("Mi Cuenta");
 	    btnCuenta.setBounds(475, 0, 97, 25);
+	    Runnable r = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(!inicioSesion){
+					btnCuenta.setVisible(true);
+					
+					try {
+						Thread.sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					btnCuenta.setVisible(false);
+					
+				}
+				btnCuenta.setVisible(true);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	    panelFondo.add(btnCuenta);
 	    btnCuenta.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 	    
@@ -225,6 +255,71 @@ public class VentanaPrincipal extends JFrame implements ActionListener, MouseLis
 			else
 				new VentanaFinalizarCompra2(this);
 		}
+		JFrame v = this;
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+				// TODO Auto-generated method stub
+				Runnable r = new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						while(v.getOpacity()>0.01f){
+							v.setOpacity(v.getOpacity()-0.01f);
+							try {
+								Thread.sleep(10);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						v.dispose();
+					}
+				};
+				Thread mt = new Thread(r);
+				mt.start();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	@Override

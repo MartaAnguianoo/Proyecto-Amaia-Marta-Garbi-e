@@ -17,8 +17,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import java.awt.Color;
 
-
+/**
+ * Ventana que deja meter los datos personales del cliente asi como registrarse
+ * @author Amaia, Marta y Garbiñe
+ *
+ */
 public class VentanaCuenta extends JFrame implements ActionListener {
 
 	private JPanel contentPane , panelSur, panelNorte;
@@ -40,12 +45,14 @@ public class VentanaCuenta extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		panelSur = new JPanel();
-		panelSur.setBounds(5, 5, 422, 27);
+		panelSur.setBounds(5, 5, 422, 35);
 		contentPane.add(panelSur);
 		panelSur.setLayout(null);
 
 		lblBienvenidoAModa = new JLabel("Bienvenido a moda y complemetos GAM");
-		lblBienvenidoAModa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblBienvenidoAModa.setForeground(Color.BLUE);
+		lblBienvenidoAModa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenidoAModa.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		lblBienvenidoAModa.setBounds(0, 5, 422, 16);
 		panelSur.add(lblBienvenidoAModa);
 
@@ -54,18 +61,23 @@ public class VentanaCuenta extends JFrame implements ActionListener {
 		contentPane.add(panelNorte);
 
 		btnRegistrate = new JButton("Registrate");
+		btnRegistrate.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRegistrate.setForeground(Color.CYAN);
 		btnRegistrate.addActionListener(this);
 		panelNorte.add(btnRegistrate);
 		panelNorte.add(btnRegistrate);
 
 		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnAceptar.setForeground(new Color(50, 205, 50));
 		panelNorte.add(btnAceptar);
 		btnAceptar.addActionListener(this);
 
 
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Calibri", Font.PLAIN, 13));
+		btnCancelar.setForeground(Color.RED);
+		btnCancelar.setFont(new Font("Times New Roman", Font.BOLD, 13));
 		panelNorte.add(btnCancelar);
 		btnCancelar.addActionListener(this);
 
